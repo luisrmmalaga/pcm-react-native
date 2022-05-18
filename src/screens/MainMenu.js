@@ -1,13 +1,8 @@
 import React from "react";
 import { Text, View, Image, Button } from "react-native";
 import Styles from "../config/styles.js";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from "../redux/actions";
 
 function MainMenu({ navigation }) {
-  const { users } = useSelector((state) => state.usersReducer);
-  const dispatch = useDispatch();
-
   const goToMap = () => {
     navigation.navigate("MapScreen");
   };
