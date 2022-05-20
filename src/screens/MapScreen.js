@@ -1,23 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList } from "react-native";
-import Style from "../config/styles";
+import { View, Text, FlatList, Button } from "react-native";
+import Styles from "@config/styles";
 import { getAllUsers } from "@services/usuarios_api_calls";
 
 function MapScreen() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    setUsers(getAllUsers());
+    getAllUsers()
+      .then((users) => setUsers(users))
+      .catch((error) => console.log(error));
   }, []);
 
-  renderItem = (item) => {
-    <View style={Style.container}>
-      <Text>Latitud: {item.coordenadas.latitud}</Text>
-      <Text>Longitud: {item.coordenadas.longitud}</Text>
-    </View>;
+  renderItem = ({ item }) => {
+    return (
+      <View style={Styles.container}>
+        <Text>Latitud: {item.coordenadas.latitud}</Text>
+        <Text>Longitud: {item.coordenadas.longitud}</Text>
+      </View>
+    );
   };
 
-  return <FlatList data={users} renderItem={this.renderItem} />;
+  emptyList = () => {
+    return (
+      <View style={Styles.container}>
+        <Text>No hay usuarios</Text>
+      </View>
+    );
+  };
+
+  const onPressLearnMore = () => {
+    console.log(users);
+  };
+
+  return (
+    <View style={Styles.container}>
+      <FlatList
+        data={users}
+        keyExtractor={({ item }, index) => {
+          return index.toString();
+        }}
+        renderItem={users ? this.renderItem : this.emptyList}
+      />
+    </View>
+  );
 }
 
 export default MapScreen;

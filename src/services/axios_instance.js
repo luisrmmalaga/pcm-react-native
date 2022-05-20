@@ -8,6 +8,8 @@ const axiosClient = axios.create({
     "Content-Type": "application/json",
     Accept: "application/json",
   },
+  timeout: 10000,
+  withCredentials: true,
 });
 
 // axiosClient.defaults.baseURL = API_URL;
@@ -27,20 +29,8 @@ const axiosClient = axios.create({
 //   }
 // );
 
-//All request will wait 20 seconds before timeout
-axiosClient.defaults.timeout = 20000;
-
-axiosClient.defaults.withCredentials = true;
-
 export function getRequest(URL) {
-  return axiosClient
-    .get(`${URL}`)
-    .then((response) => {
-      response;
-    })
-    .catch((error) => {
-      console.log("GET ERROR: " + error);
-    });
+  return axiosClient.get(`${URL}`).then((response) => response);
 }
 
 export function postRequest(URL, payload) {
