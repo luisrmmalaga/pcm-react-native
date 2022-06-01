@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, Button } from "react-native";
 import Styles from "@config/styles";
 import { getAllUsers } from "@services/usuarios_api_calls";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { mapStyle } from "@config/mapStyle";
 
 function MapScreen() {
   const [users, setUsers] = useState([]);
@@ -35,13 +37,25 @@ function MapScreen() {
 
   return (
     <View style={Styles.container}>
-      <FlatList
+      {/* <FlatList
         data={users}
         keyExtractor={({ item }, index) => {
           return index.toString();
         }}
         renderItem={users ? this.renderItem : this.emptyList}
-      />
+      /> */}
+      <MapView
+        customMapStyle={mapStyle}
+        provider={PROVIDER_GOOGLE}
+        style={Styles.mapStyle}
+        initialRegion={{
+          latitude: 41.3995345,
+          longitude: 2.1909796,
+          latitudeDelta: 0.003,
+          longitudeDelta: 0.003,
+        }}
+        mapType="standard"
+      ></MapView>
     </View>
   );
 }

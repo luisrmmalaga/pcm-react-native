@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
 
 const Styles = StyleSheet.create({
   container: {
@@ -11,6 +11,11 @@ const Styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
+  },
+  title: { fontSize: 40, margin: 10 },
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
 

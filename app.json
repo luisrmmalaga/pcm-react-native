@@ -24,7 +24,12 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.lrmsoft.pcmapp"
+      "package": "com.lrmsoft.pcmapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA8p_w-WvV2nI0l3l5FNMdoh0kLQHvxru0"
+        }
+      }
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

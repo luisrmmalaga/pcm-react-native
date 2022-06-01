@@ -7,7 +7,7 @@ function MainMenu({ navigation }) {
     navigation.navigate("MapScreen");
   };
 
-  const onPressLearnMore = () => {
+  const goToMetrics = () => {
     console.log("metricas status: wip");
   };
 
@@ -16,7 +16,7 @@ function MainMenu({ navigation }) {
       <Text>Hello Luis!</Text>
       <Image style={Styles.logo} source={require("../assets/pcm-icon.png")} />
       <Button onPress={goToMap} title="MAPA" color="dodgerblue" />
-      <Button onPress={onPressLearnMore} title="MÉTRICAS" color="dodgerblue" />
+      <Button onPress={goToMetrics} title="MÉTRICAS" color="dodgerblue" />
     </View>
   );
 }
