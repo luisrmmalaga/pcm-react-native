@@ -3,10 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainMenu from "./src/screens/MainMenu";
 import MapScreen from "./src/screens/MapScreen";
+import requestPermissions from "@hooks/backgroundLocation";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  requestPermissions();
   return (
     <NavigationContainer>
       <Stack.Navigator

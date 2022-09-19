@@ -29,7 +29,12 @@
         "googleMaps": {
           "apiKey": "AIzaSyA8p_w-WvV2nI0l3l5FNMdoh0kLQHvxru0"
         }
-      }
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
