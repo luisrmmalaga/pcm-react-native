@@ -7,7 +7,10 @@ import {
 
 export async function getAllLogsUser() {
   try {
-    return await getRequest("logUsers").then((response) => response.data);
+    return await getRequest("logUsers").then(function (response) {
+      console.log("Get all logs ", response.status);
+      return response.data;
+    });
   } catch (error) {
     console.log("Error getting all log users - " + error);
   }
@@ -21,9 +24,11 @@ export async function getLogsUserById(id) {
   }
 }
 
-export async function createLogUser() {
+export async function createLogUser(userData) {
   try {
-    return await postRequest("logUser").then((response) => response.status);
+    return await postRequest("logUser", userData).then(
+      (response) => response.status
+    );
   } catch (error) {
     console.log("Error creating log user - " + error);
   }

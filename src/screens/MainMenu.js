@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Image, Button } from "react-native";
+import { View, Image, Button } from "react-native";
 import Styles from "../config/styles.js";
 
 function MainMenu({ navigation }) {
@@ -13,7 +13,6 @@ function MainMenu({ navigation }) {
 
   return (
     <View style={Styles.container}>
-      <Text>Hello Luis!</Text>
       <Image style={Styles.logo} source={require("../assets/pcm-icon.png")} />
       <Button onPress={goToMap} title="MAPA" color="dodgerblue" />
       <Button onPress={goToMetrics} title="MÉTRICAS" color="dodgerblue" />
