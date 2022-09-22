@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainMenu from "./src/screens/MainMenu";
 import MapScreen from "./src/screens/MapScreen";
 import requestPermissions from "@hooks/backgroundLocation";
+import { createOrUpdateUserSession } from "./src/services/usuarios_api_calls";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  createOrUpdateUserSession("1111", Date.now());
   requestPermissions();
   return (
     <NavigationContainer>
