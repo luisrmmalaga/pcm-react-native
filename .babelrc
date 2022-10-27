@@ -15,7 +15,7 @@
             "@config": "./src/config",
             "@screens": "./src/screens",
             "@services": "./src/services",
-            "@hooks": "./src/hooks"
+            "@tasks": "./src/tasks"
           }
         }
       ]

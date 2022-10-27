@@ -1,33 +1,14 @@
 import axios from "axios";
-import API_URL from "@config/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import CONSTANTS from "@config/constants";
 
 const axiosClient = axios.create({
-  baseURL: API_URL,
+  baseURL: CONSTANTS.LOCALHOST,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
-  timeout: 10000,
   withCredentials: true,
 });
-
-// axiosClient.defaults.baseURL = API_URL;
-// axiosClient.baseURL = API_URL;
-
-// axiosClient.defaults.headers = {
-//   "Content-Type": "application/json",
-//   Accept: "application/json",
-// };
-
-// axiosClient.interceptors.request.use(
-//   async (config) => {
-//     const token = await AsyncStorage.getItem("token");
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 export function getRequest(URL) {
   return axiosClient.get(`${URL}`).then((response) => response);
