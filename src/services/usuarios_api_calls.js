@@ -21,17 +21,21 @@ export async function getUserById(id) {
   }
 }
 
-export async function createUser() {
+export async function createUser(data) {
   try {
-    return await postRequest("user").then((response) => response.status);
+    return await postRequest("user", data).then((response) => {
+      return response.data;
+    });
   } catch (error) {
     console.log("Error creating user - " + error);
   }
 }
 
-export async function updateUser(id) {
+export async function updateUser(id, data) {
   try {
-    return await putRequest("user/" + id).then((response) => response.status);
+    return await putRequest("user/" + id, data).then((response) => {
+      return response.status;
+    });
   } catch (error) {
     console.log("Error updating user " + id + " - " + error);
   }
@@ -45,4 +49,16 @@ export async function deleteUser(id) {
   } catch (error) {
     console.log("Error removing user " + id + " - " + error);
   }
+}
+
+//UPDATE SESIÓN
+export async function findAndUpdateUserSession(id, timestamp) {
+  getUserById(id).then((response) => {
+    if (response) {
+      response.timestampUltimoRegistro = timestamp;
+      return updateUser(id, response).then(
+        (response) => "Sesión actualizada - " + response
+      );
+    }
+  });
 }
