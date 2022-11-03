@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View, Text } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import Styles from "@config/styles";
-import { mapStyle } from "@config/mapStyle";
-import { getAllLogsUser } from "@services/log_usuarios_api_calls";
+import { mapStyle } from '@config/mapStyle'
+import Styles from '@config/styles'
+import { getAllLogsUser } from '@services/log_usuarios_api_calls'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 
 const Map = ({ currentLocation }) => {
-  const [location, setLocation] = useState(currentLocation);
-  const [markers, setMarkers] = useState();
+  const [location, setLocation] = useState(currentLocation)
+  const [markers, setMarkers] = useState()
 
   useEffect(() => {
-    setLocation(currentLocation);
-  }, [currentLocation]);
+    setLocation(currentLocation)
+  }, [currentLocation])
 
   useEffect(() => {
     getAllLogsUser()
       .then((logs) => {
-        formattedLogs = logs.map(function (log) {
+        const formattedLogs = logs.map(function (log) {
           return {
             latitude: log.coordenadas.latitud,
             longitude: log.coordenadas.longitud,
-            weight: 1,
-          };
-        });
-        setMarkers(formattedLogs);
+            weight: 1
+          }
+        })
+        setMarkers(formattedLogs)
       })
-      .catch((error) => console.log(error));
-  }, []);
+      .catch((error) => console.log(error))
+  }, [])
 
   if (!location || !markers) {
     return (
       <View style={Styles.container}>
         <Text>Loading map...</Text>
         <ActivityIndicator
-          size="large"
-          color="#0000ff"
+          size='large'
+          color='#0000ff'
           style={{ marginTop: 50 }}
         />
       </View>
-    );
+    )
   }
 
   return (
@@ -50,11 +50,11 @@ const Map = ({ currentLocation }) => {
         latitude: location.latitud,
         longitude: location.longitud,
         latitudeDelta: 0.003,
-        longitudeDelta: 0.003,
+        longitudeDelta: 0.003
       }}
-      showsUserLocation={true}
-      showMyLocationButton={true}
-      mapType="standard"
+      showsUserLocation
+      showMyLocationButton
+      mapType='standard'
     >
       <MapView.Heatmap
         points={markers}
@@ -62,10 +62,10 @@ const Map = ({ currentLocation }) => {
         radius={20}
         maxIntensity={100}
         gradientSmoothing={10}
-        heatmapMode={"POINTS_DENSITY"}
+        heatmapMode='POINTS_DENSITY'
       />
     </MapView>
-  );
-};
+  )
+}
 
-export default Map;
+export default Map

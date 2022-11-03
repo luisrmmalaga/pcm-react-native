@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Button } from "react-native";
 import Styles from "@config/styles";
-import Map from "../components/Map";
 import * as Location from "expo-location";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import Map from "../components/Map";
 
 function MapScreen() {
   const [location, setLocation] = useState(null);
