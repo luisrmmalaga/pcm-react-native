@@ -1,10 +1,11 @@
 import {
-  deleteRequest, getRequest,
+  deleteRequest,
+  getRequest,
   postRequest,
-  putRequest
+  putRequest,
 } from './axios_instance'
 
-export async function getAllLogsUser () {
+export async function getAllLogsUser() {
   try {
     return await getRequest('logUsers').then(function (response) {
       console.log('Get all logs ', response.status)
@@ -15,7 +16,7 @@ export async function getAllLogsUser () {
   }
 }
 
-export async function getLogsUserById (id) {
+export async function getLogsUserById(id) {
   try {
     return await getRequest('logUser/' + id).then((response) => response.data)
   } catch (error) {
@@ -23,7 +24,7 @@ export async function getLogsUserById (id) {
   }
 }
 
-export async function createLogUser (userData) {
+export async function createLogUser(userData) {
   try {
     return await postRequest('logUser', userData).then(
       (response) => response.status
@@ -33,17 +34,15 @@ export async function createLogUser (userData) {
   }
 }
 
-export async function updateUser (id) {
+export async function updateUser(id) {
   try {
-    return await putRequest('logUser/' + id).then(
-      (response) => response.status
-    )
+    return await putRequest('logUser/' + id).then((response) => response.status)
   } catch (error) {
     console.log('Error updating log user ' + id + ' - ' + error)
   }
 }
 
-export async function deleteUser (id) {
+export async function deleteUser(id) {
   try {
     return await deleteRequest('logUser/' + id).then(
       (response) => response.status

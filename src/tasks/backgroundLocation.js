@@ -9,7 +9,6 @@ const LOCATION_TASK_NAME = 'background-location-task'
 const requestPermissions = async () => {
   try {
     if (!(await Location.requestForegroundPermissionsAsync())) {
-      // eslint-disable-next-line no-undef
       alert(
         'Se necesita permiso para que la aplicación se ejecute en primer plano'
       )
@@ -17,7 +16,6 @@ const requestPermissions = async () => {
     }
 
     if (!(await Location.requestBackgroundPermissionsAsync())) {
-      // eslint-disable-next-line no-undef
       alert(
         'Se necesita permiso para que la aplicación se ejecute en segundo plano'
       )
@@ -27,7 +25,7 @@ const requestPermissions = async () => {
     await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
       // CHECK LOCATIONS OPTIONS
       accuracy: Location.Accuracy.High,
-      timeInterval: CONSTANTS.TIME_INTERVAL_BACKGROUND_LOCATION // 5 -- 10 seg -- 20
+      timeInterval: CONSTANTS.TIME_INTERVAL_BACKGROUND_LOCATION, // 5 -- 10 seg -- 20
     })
   } catch (error) {
     console.log('Error getting location permission: ' + error)
@@ -47,9 +45,9 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
       idUsuario: id,
       coordenadas: {
         latitud: location.coords.latitude,
-        longitud: location.coords.longitude
+        longitud: location.coords.longitude,
       },
-      timestamp: location.timestamp
+      timestamp: location.timestamp,
     }).then((response) => console.log('Log created', response))
   })
 })

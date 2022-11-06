@@ -1,7 +1,8 @@
 import {
-  deleteRequest, getRequest,
+  deleteRequest,
+  getRequest,
   postRequest,
-  putRequest
+  putRequest,
 } from './axios_instance'
 
 export async function getAllUsers() {
@@ -42,9 +43,7 @@ export async function updateUser(id, data) {
 
 export async function deleteUser(id) {
   try {
-    return await deleteRequest('user/' + id).then(
-      (response) => response.status
-    )
+    return await deleteRequest('user/' + id).then((response) => response.status)
   } catch (error) {
     console.log('Error removing user ' + id + ' - ' + error)
   }

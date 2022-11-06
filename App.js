@@ -1,15 +1,15 @@
+// eslint-disable-next-line no-unused-vars
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import FavScreen from '@screens/FavScreen'
 import MainMenu from '@screens/MainMenu'
 import MapScreen from '@screens/MapScreen'
 import requestPermissions from '@tasks/backgroundLocation'
 import userLogin from '@tasks/userLogin'
-import React from 'react'
 
+// eslint-disable-next-line no-undef, no-unused-vars
 const Stack = createNativeStackNavigator()
 
-function App () {
+function App() {
   requestPermissions()
   userLogin()
 
@@ -17,13 +17,13 @@ function App () {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          header: () => null
+          header: () => null,
         }}
-        initialRouteName='MainMenu'
+        initialRouteName="MainMenu"
       >
-        <Stack.Screen name='MainMenu' component={MainMenu} />
-        <Stack.Screen name='MapScreen' component={MapScreen} />
-        <Stack.Screen name='FavScreen' component={FavScreen} />
+        <Stack.Screen name="MainMenu" component={MainMenu} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="FavScreen" component={FavScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

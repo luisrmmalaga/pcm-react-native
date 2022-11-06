@@ -6,8 +6,8 @@ import { ActivityIndicator, Text, View } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 
 const Map = ({ currentLocation }) => {
-  const [location, setLocation] = useState(currentLocation)
-  const [markers, setMarkers] = useState()
+  const [location, setLocation] = useStat(currentLocation)
+  const [heatPoints, setHeatPoints] = useState()
 
   useEffect(() => {
     setLocation(currentLocation)
@@ -20,21 +20,21 @@ const Map = ({ currentLocation }) => {
           return {
             latitude: log.coordenadas.latitud,
             longitude: log.coordenadas.longitud,
-            weight: 1
+            weight: 1,
           }
         })
-        setMarkers(formattedLogs)
+        setHeatPoints(formattedLogs)
       })
       .catch((error) => console.log(error))
   }, [])
 
-  if (!location || !markers) {
+  if (!location || !heatPoints) {
     return (
       <View style={Styles.container}>
         <Text>Loading map...</Text>
         <ActivityIndicator
-          size='large'
-          color='#0000ff'
+          size="large"
+          color="#0000ff"
           style={{ marginTop: 50 }}
         />
       </View>
@@ -50,19 +50,19 @@ const Map = ({ currentLocation }) => {
         latitude: location.latitud,
         longitude: location.longitud,
         latitudeDelta: 0.003,
-        longitudeDelta: 0.003
+        longitudeDelta: 0.003,
       }}
       showsUserLocation
       showMyLocationButton
-      mapType='standard'
+      mapType="standard"
     >
       <MapView.Heatmap
-        points={markers}
+        points={heatPoints}
         opacity={1}
         radius={20}
         maxIntensity={100}
         gradientSmoothing={10}
-        heatmapMode='POINTS_DENSITY'
+        heatmapMode="POINTS_DENSITY"
       />
     </MapView>
   )

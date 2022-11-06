@@ -2,7 +2,7 @@ import Styles from '@config/styles'
 import React from 'react'
 import { Text, View } from 'react-native'
 
-function FavScreen () {
+function FavScreen() {
   return (
     <View style={Styles.container}>
       <Text>Hola</Text>
