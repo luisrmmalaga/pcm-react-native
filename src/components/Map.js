@@ -6,7 +6,7 @@ import { ActivityIndicator, Text, View } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 
 const Map = ({ currentLocation }) => {
-  const [location, setLocation] = useStat(currentLocation)
+  const [location, setLocation] = useState(currentLocation)
   const [heatPoints, setHeatPoints] = useState()
 
   useEffect(() => {
