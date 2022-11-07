@@ -1,12 +1,12 @@
-import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
+import { Dimensions, Platform, StatusBar, StyleSheet } from 'react-native'
 
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   logo: {
     width: 200,
@@ -14,9 +14,9 @@ const Styles = StyleSheet.create({
   },
   title: { fontSize: 40, margin: 10 },
   mapStyle: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
-});
+})
 
-export default Styles;
+export default Styles

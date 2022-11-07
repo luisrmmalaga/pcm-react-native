@@ -1,49 +1,46 @@
-import React from "react";
-import * as Location from "expo-location";
-import * as TaskManager from "expo-task-manager";
-import { createLogUser } from "@services/log_usuarios_api_calls";
-import CONSTANTS from "@config/constants";
-import * as SecureStore from "expo-secure-store";
+import CONSTANTS from '@config/constants'
+import { createLogUser } from '@services/log_usuarios_api_calls'
+import * as Location from 'expo-location'
+import * as SecureStore from 'expo-secure-store'
+import * as TaskManager from 'expo-task-manager'
 
-const LOCATION_TASK_NAME = "background-location-task";
+const LOCATION_TASK_NAME = 'background-location-task'
 
 const requestPermissions = async () => {
   try {
     if (!(await Location.requestForegroundPermissionsAsync())) {
       alert(
-        "Se necesita permiso para que la aplicación se ejecute en primer plano"
-      );
-      return;
+        'Se necesita permiso para que la aplicación se ejecute en primer plano'
+      )
+      return
     }
 
     if (!(await Location.requestBackgroundPermissionsAsync())) {
       alert(
-        "Se necesita permiso para que la aplicación se ejecute en segundo plano"
-      );
-      return;
+        'Se necesita permiso para que la aplicación se ejecute en segundo plano'
+      )
+      return
     }
 
     await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-      //CHECK LOCATIONS OPTIONS
+      // CHECK LOCATIONS OPTIONS
       accuracy: Location.Accuracy.High,
-      timeInterval: CONSTANTS.TIME_INTERVAL_BACKGROUND_LOCATION, //5 -- 10 seg -- 20
-    });
+      timeInterval: CONSTANTS.TIME_INTERVAL_BACKGROUND_LOCATION, // 5 -- 10 seg -- 20
+    })
   } catch (error) {
-    console.log("Error getting location permission: " + error);
+    console.log('Error getting location permission: ' + error)
   }
-};
+}
 
 TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
   if (error) {
-    console.log("Error getting location in background task: " + error);
-    return;
+    console.log('Error getting location in background task: ' + error)
+    return
   }
 
-  const location = data.locations[0];
-  // console.log("background location: ", location);
+  const location = data.locations[0]
 
   SecureStore.getItemAsync(CONSTANTS.USER_SESSION).then((id) => {
-    //REVISAR
     createLogUser({
       idUsuario: id,
       coordenadas: {
@@ -51,8 +48,8 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
         longitud: location.coords.longitude,
       },
       timestamp: location.timestamp,
-    }).then((response) => console.log("Log created", response));
-  });
-});
+    }).then((response) => console.log('Log created', response))
+  })
+})
 
-export default requestPermissions;
+export default requestPermissions
