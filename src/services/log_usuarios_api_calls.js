@@ -24,6 +24,16 @@ export async function getLogsUserById(id) {
   }
 }
 
+export async function getLogsFromSelectedLocation(location) {
+  try {
+    return await getRequest(
+      'logsIn/' + location.latitud + '/' + location.longitud
+    ).then((response) => response.data)
+  } catch (error) {
+    console.log('Error getting logs user from selected location - ' + error)
+  }
+}
+
 export async function createLogUser(userData) {
   try {
     return await postRequest('logUser', userData).then(
