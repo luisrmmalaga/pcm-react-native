@@ -54,9 +54,7 @@ export async function findAndUpdateUserSession(id, timestamp) {
   getUserById(id).then((response) => {
     if (response) {
       response.timestampUltimoRegistro = timestamp
-      return updateUser(id, response).then(
-        (response) => 'Sesión actualizada - ' + response
-      )
+      updateUser(id, response)
     }
   })
 }

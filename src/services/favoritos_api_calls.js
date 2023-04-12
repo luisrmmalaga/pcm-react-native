@@ -29,10 +29,27 @@ export async function getFavouritesByUserId(id) {
 export async function createFavourite(favouriteData) {
   try {
     return await postRequest('favourite', favouriteData).then(
-      (response) => response.status
+      (response) => response
     )
   } catch (error) {
     console.log('Error creating favourite location - ' + error)
+  }
+}
+
+export async function upsertFavourite(filter, favouriteData) {
+  try {
+    return await putRequest(
+      filter.idUsuario +
+        '/favourite/' +
+        filter.latitud +
+        '/' +
+        filter.longitud +
+        '/' +
+        filter.timestampCreacion,
+      favouriteData
+    ).then((response) => response)
+  } catch (error) {
+    console.log('Error inserting or updating favourite location - ' + error)
   }
 }
 
@@ -53,5 +70,24 @@ export async function deleteFavourite(id) {
     )
   } catch (error) {
     console.log('Error removing favourite location ' + id + ' - ' + error)
+  }
+}
+
+export async function deleteFavouriteByUserIdTimestampAndCoords(favLocation) {
+  try {
+    return await deleteRequest(
+      favLocation.idUsuario +
+        '/' +
+        favLocation.timestampCreacion +
+        '/coordinates/' +
+        favLocation.coordenadas.latitud +
+        '/' +
+        favLocation.coordenadas.longitud
+    ).then((response) => response.status)
+  } catch (error) {
+    console.log(
+      'Error removing favourite location by userId, timestamp and coordinates - ' +
+        error
+    )
   }
 }

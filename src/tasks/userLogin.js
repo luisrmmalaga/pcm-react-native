@@ -1,4 +1,4 @@
-import CONSTANTS from '@config/constants'
+import { LOCAL_STORAGE } from '@config/constants'
 import {
   createUser,
   findAndUpdateUserSession,
@@ -6,20 +6,22 @@ import {
 import * as SecureStore from 'expo-secure-store'
 
 export default function userLogin() {
-  SecureStore.getItemAsync(CONSTANTS.USER_SESSION).then((result) => {
+  const timestamp = Date.now()
+
+  SecureStore.getItemAsync(LOCAL_STORAGE.USER_SESSION).then((result) => {
     if (!result) {
       createUser({
-        timestampCreacion: Date.now(),
-        timestampFin: Date.now(),
-        timestampUltimoRegistro: Date.now(),
+        timestampCreacion: timestamp,
+        timestampFin: timestamp,
+        timestampUltimoRegistro: timestamp,
         coordenadas: { latitud: 0, longitud: 0 },
       }).then((response) => {
         console.log('Nuevo usuario registrado con éxito - ' + response)
 
-        SecureStore.setItemAsync(CONSTANTS.USER_SESSION, response)
+        SecureStore.setItemAsync(LOCAL_STORAGE.USER_SESSION, response)
       })
     } else {
-      findAndUpdateUserSession(result, Date.now()).then((response) => {
+      findAndUpdateUserSession(result, timestamp).then(() => {
         console.log('Sesión actualizada correctamente')
       })
     }

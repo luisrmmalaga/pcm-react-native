@@ -1,5 +1,6 @@
+import { Button } from '@react-native-material/core'
 import React from 'react'
-import { Button, Image, View } from 'react-native'
+import { Image, ImageBackground, View } from 'react-native'
 import Styles from '../config/styles.js'
 
 function MainMenu({ navigation }) {
@@ -8,7 +9,7 @@ function MainMenu({ navigation }) {
   }
 
   const goToFavs = () => {
-    navigation.navigate('FavScreen')
+    navigation.navigate('FavListScreen')
   }
 
   const goToMetrics = () => {
@@ -16,11 +17,28 @@ function MainMenu({ navigation }) {
   }
 
   return (
-    <View style={Styles.container}>
-      <Image style={Styles.logo} source={require('../assets/pcm-icon.png')} />
-      <Button onPress={goToMap} title="MAPA" color="dodgerblue" />
-      <Button onPress={goToFavs} title="FAVORITOS" color="dodgerblue" />
-      <Button onPress={goToMetrics} title="MÉTRICAS" color="dodgerblue" />
+    <View style={Styles.menuContainer}>
+      <ImageBackground
+        style={[Styles.menuBackground, Styles.menuContainer]}
+        source={require('../assets/fondo-menu.jpg')}
+      >
+        <Image style={Styles.logo} source={require('../assets/pcm-icon.png')} />
+        <Button
+          onPress={goToMap}
+          title="MAPA"
+          style={[Styles.button, Styles.menuButton]}
+        />
+        <Button
+          onPress={goToFavs}
+          title="FAVORITOS"
+          style={[Styles.button, Styles.menuButton]}
+        />
+        <Button
+          onPress={goToMetrics}
+          title="MÉTRICAS"
+          style={[Styles.button, Styles.menuButton]}
+        />
+      </ImageBackground>
     </View>
   )
 }

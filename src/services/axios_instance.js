@@ -1,8 +1,8 @@
-import CONSTANTS from '@config/constants'
+import { URL_CONSTANTS } from '@config/constants'
 import axios from 'axios'
 
 const axiosClient = axios.create({
-  baseURL: CONSTANTS.LOCALHOST,
+  baseURL: URL_CONSTANTS.LOCALHOST,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
