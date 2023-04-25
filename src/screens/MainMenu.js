@@ -12,8 +12,8 @@ function MainMenu({ navigation }) {
     navigation.navigate('FavListScreen')
   }
 
-  const goToMetrics = () => {
-    console.log('metricas status: wip')
+  const goToGraphics = () => {
+    navigation.navigate('GraphicsScreen')
   }
 
   return (
@@ -34,8 +34,8 @@ function MainMenu({ navigation }) {
           style={[Styles.button, Styles.menuButton]}
         />
         <Button
-          onPress={goToMetrics}
-          title="MÉTRICAS"
+          onPress={goToGraphics}
+          title="GRÁFICAS"
           style={[Styles.button, Styles.menuButton]}
         />
       </ImageBackground>

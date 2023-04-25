@@ -2,7 +2,6 @@ import { LOCAL_STORAGE } from '@config/constants'
 import { mapStyle } from '@config/mapStyle'
 import Styles from '@config/styles'
 import { getFavouritesByUserId } from '@services/favoritos_api_calls'
-import { getAllLogsUser } from '@services/log_usuarios_api_calls'
 import * as SecureStore from 'expo-secure-store'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
@@ -17,9 +16,9 @@ const Map = ({ props }) => {
   const removeMarker = props.removeMarker
   const getSelectedLocationFromMapComponent =
     props.getSelectedLocationFromMapComponent
+  const heatPoints = props.heatPoints
 
   const [location, setLocation] = useState(props.location)
-  const [heatPoints, setHeatPoints] = useState()
   const [selectedLocation, setSelectedLocation] = useState({})
   const [marker, setMarker] = useState(null)
   const [favLocationMarkers, setFavLocationMarkers] = useState([])
@@ -63,21 +62,6 @@ const Map = ({ props }) => {
   useEffect(() => {
     setLocation(props.location)
   }, [props.location])
-
-  useEffect(() => {
-    getAllLogsUser()
-      .then((logs) => {
-        const formattedLogs = logs.map(function (log) {
-          return {
-            latitude: log.coordenadas.latitud,
-            longitude: log.coordenadas.longitud,
-            weight: 1,
-          }
-        })
-        setHeatPoints(formattedLogs)
-      })
-      .catch((error) => console.log(error))
-  }, [])
 
   useEffect(() => {
     showMarker()
@@ -137,14 +121,16 @@ const Map = ({ props }) => {
           />
         ))}
 
-      <MapView.Heatmap
-        points={heatPoints}
-        opacity={1}
-        radius={20}
-        maxIntensity={100}
-        gradientSmoothing={10}
-        heatmapMode="POINTS_DENSITY"
-      />
+      {heatPoints.length > 0 && (
+        <MapView.Heatmap
+          points={heatPoints}
+          opacity={1}
+          radius={20}
+          maxIntensity={100}
+          gradientSmoothing={10}
+          heatmapMode="POINTS_DENSITY"
+        />
+      )}
     </MapView>
   )
 }

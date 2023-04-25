@@ -2,6 +2,7 @@ import Styles from '@config/styles'
 import { VStack } from '@react-native-material/core'
 import { Icon, ListItem, Text } from '@rneui/themed'
 import React, { useState } from 'react'
+import { View } from 'react-native'
 import EditButton from './EditButton'
 
 const FavouriteLocationCard = ({ item, update, navigation }) => {
@@ -11,14 +12,34 @@ const FavouriteLocationCard = ({ item, update, navigation }) => {
   const location = item.item
   const updateChecksState = update
 
-  const getUnidadDeMedida = (title) => {
+  const getUnits = (title) => {
     switch (title) {
       case 'Densidad':
-        return 'personas/km'
+        return (
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+            <Text style={{ lineHeight: 30 }}>
+              {title}: {location.densidad}
+            </Text>
+            <Text style={{ lineHeight: 30 }}> personas/km</Text>
+            <Text style={{ lineHeight: 18 }}>2</Text>
+          </View>
+        )
 
       case 'Radio':
-        return 'm'
+        return (
+          <Text>
+            {title}: {location.radio} m
+          </Text>
+        )
     }
+  }
+
+  const writeRadius = () => {
+    return getUnits('Radio')
+  }
+
+  const writeDensity = () => {
+    return getUnits('Densidad')
   }
 
   return (
@@ -43,16 +64,8 @@ const FavouriteLocationCard = ({ item, update, navigation }) => {
             <ListItem.Title>
               <Text>Nombre: {location.nombre}</Text>
             </ListItem.Title>
-            <ListItem.Subtitle>
-              <Text>
-                Radio: {location.radio} {getUnidadDeMedida('Radio')}
-              </Text>
-            </ListItem.Subtitle>
-            <ListItem.Subtitle>
-              <Text>
-                Densidad: {location.densidad} {getUnidadDeMedida('Densidad')}
-              </Text>
-            </ListItem.Subtitle>
+            <ListItem.Subtitle>{writeRadius()}</ListItem.Subtitle>
+            <ListItem.Subtitle>{writeDensity()}</ListItem.Subtitle>
           </ListItem.Content>
           <EditButton props={{ location, navigation }} />
         </>

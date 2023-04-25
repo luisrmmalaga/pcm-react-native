@@ -55,7 +55,22 @@ const Styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: -32,
   },
+  mapStyle: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   mapOptionsBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  favListOptionsBar: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -63,15 +78,6 @@ const Styles = StyleSheet.create({
     backgroundColor: '#023047',
     width: '100%',
     height: '100%',
-  },
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    flex: 8,
-  },
-  picker: {
-    height: 50,
-    width: 125,
   },
   input: {
     backgroundColor: 'white',
@@ -93,13 +99,23 @@ const Styles = StyleSheet.create({
   menuButton: {
     width: Dimensions.get('window').width / 3,
   },
+  markerActionsButton: {
+    backgroundColor: '#fb8500',
+  },
+  mapFilterButton: {
+    backgroundColor: '#fb8500',
+  },
   favButton: {
     backgroundColor: '#FFB703',
-    borderRadius: 4,
   },
   clearButton: {
     backgroundColor: '#8ECAE6',
-    borderRadius: 4,
+  },
+  timeFilterDropdown: {
+    width: Dimensions.get('window').width / 2,
+  },
+  timeFilterDropdownBox: {
+    width: Dimensions.get('window').width / 2,
   },
   label: {
     color: 'black',
@@ -178,6 +194,23 @@ const Styles = StyleSheet.create({
   favDataCard: {
     elevation: 10,
     backgroundColor: '#8ECAE6',
+  },
+  graphicsView: {
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    width: Dimensions.get('window').width,
+    flex: 1,
+  },
+  graphicTab: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width,
+  },
+  tabContainer: {
+    backgroundColor: '#023047',
+  },
+  tabIndicator: {
+    backgroundColor: 'white',
+    height: 3,
   },
 })
 
