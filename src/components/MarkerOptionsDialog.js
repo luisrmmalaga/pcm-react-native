@@ -1,9 +1,7 @@
-import { LOCAL_STORAGE } from '@config/constants'
 import { Button, Chip, HStack, VStack } from '@react-native-material/core'
 import { Dialog, Icon } from '@rneui/themed'
-import { upsertFavourite } from '@services/favoritos_api_calls'
+import { calculateTrending } from '@services/checkpoints_service_api_calls'
 import { getLogsFromSelectedLocation } from '@services/log_usuarios_api_calls'
-import * as SecureStore from 'expo-secure-store'
 import React, { useEffect, useState } from 'react'
 import Styles from '../config/styles'
 import DataCard from './DataCard'
@@ -13,6 +11,7 @@ const MarkerOptionsDialog = ({ props }) => {
   const [location, setLocation] = useState(props.selectedLocation)
   const [radio, setRadio] = useState()
   const [densidad, setDensidad] = useState()
+  const [tendencia, setTendencia] = useState()
 
   useEffect(() => {
     setLocation(props.selectedLocation)
@@ -31,42 +30,22 @@ const MarkerOptionsDialog = ({ props }) => {
         })
         .catch((error) => console.log(error))
     }
+
+    if (location.nombre) {
+      calculateTrending({
+        nombre: location.nombre,
+        user: location.idUsuario,
+      })
+        .then((tendencia) => {
+          setTendencia(tendencia)
+        })
+        .catch((error) => console.log(error))
+    }
   }, [location])
 
   const goToFavFormScreen = () => {
     props.changeStatusDialogCallback()
     navigation.navigate('FavFormScreen', location)
-  }
-
-  const updateFavLocationData = () => {
-    const filter = {
-      idUsuario: location.idUsuario,
-      latitud: location.coordenadas.latitud,
-      longitud: location.coordenadas.longitud,
-      timestampCreacion: location.timestampCreacion,
-    }
-
-    SecureStore.getItemAsync(LOCAL_STORAGE.USER_SESSION).then((result) => {
-      const fav = {
-        idUsuario: result,
-        nombre: location.nombre,
-        coordenadas: {
-          latitud: location.coordenadas.latitud,
-          longitud: location.coordenadas.longitud,
-        },
-        timestampCreacion: location.timestampCreacion,
-        timestampUltimaMuestra: Date.now(),
-        densidad: location.densidad,
-        radio: location.radio,
-      }
-
-      upsertFavourite(filter, fav)
-        .then((result) => {
-          setLocation(result.data)
-          props.changeStatusDialogCallback()
-        })
-        .catch((error) => console.log(error))
-    })
   }
 
   return (
@@ -105,7 +84,7 @@ const MarkerOptionsDialog = ({ props }) => {
                 props={{
                   data: {
                     title: 'Tendencia',
-                    value: location.densidad,
+                    value: tendencia,
                   },
                 }}
               />
@@ -127,23 +106,6 @@ const MarkerOptionsDialog = ({ props }) => {
             }
             onPress={goToFavFormScreen}
           />
-          {location.nombre && (
-            <Chip
-              style={Styles.chip}
-              color="black"
-              contentContainerStyle={Styles.dialogChip}
-              label="Sincronizar datos"
-              leading={() => (
-                <Icon
-                  name="refresh-circle"
-                  type="ionicon"
-                  color="black"
-                  size={22}
-                />
-              )}
-              onPress={updateFavLocationData}
-            />
-          )}
         </VStack>
       </VStack>
       <Dialog.Actions>

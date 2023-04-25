@@ -149,7 +149,7 @@ function FavListScreen({ navigation, route }) {
           />
         )}
       </SafeAreaView>
-      <View style={Styles.mapOptionsBar}>
+      <View style={Styles.favListOptionsBar}>
         <Button
           title="Eliminar"
           style={Styles.removeFavLocationButton}

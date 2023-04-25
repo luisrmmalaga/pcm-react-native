@@ -16,6 +16,17 @@ export async function getAllLogsUser() {
   }
 }
 
+export async function getFilteredLogsUser(timestamp) {
+  try {
+    return await getRequest('logUsers/' + timestamp).then(function (response) {
+      console.log('Get filtered logs ', response.status)
+      return response.data
+    })
+  } catch (error) {
+    console.log('Error getting log users filtered by timestamp - ' + error)
+  }
+}
+
 export async function getLogsUserById(id) {
   try {
     return await getRequest('logUser/' + id).then((response) => response.data)

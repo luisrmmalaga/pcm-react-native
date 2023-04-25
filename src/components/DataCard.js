@@ -1,19 +1,33 @@
 import Styles from '@config/styles'
 import { HStack } from '@react-native-material/core'
 import { Card, Icon, Text } from '@rneui/themed'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 const dataCard = ({ props }) => {
-  const { title, value } = props.data
+  const [title, setTitle] = useState(props.data.title)
+  const [value, setValue] = useState(props.data.value)
 
-  const getUnidadDeMedida = () => {
+  useEffect(() => {
+    setTitle(props.data.title)
+    setValue(props.data.value)
+  }, [props.data])
+
+  const getUnits = (title) => {
     switch (title) {
       case 'Densidad':
-        return 'p/km'
+        return (
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+            <Text style={{ lineHeight: 30, fontWeight: 'bold' }}>{value}</Text>
+            <Text style={{ lineHeight: 30, fontWeight: 'bold' }}> p/km</Text>
+            <Text style={{ lineHeight: 18, fontWeight: 'bold' }}>2</Text>
+          </View>
+        )
 
       case 'Radio':
-        return 'm'
+        return <Text style={{ fontWeight: 'bold' }}>{value} m</Text>
+      default:
+        return <Text style={{ fontWeight: 'bold' }}>{value}</Text>
     }
   }
 
@@ -28,30 +42,28 @@ const dataCard = ({ props }) => {
       >
         {title === 'Tendencia' ? (
           <HStack center>
-            {value !== 'hola' ? (
+            {value > 0 ? (
               <Icon color="red" type="entypo" name="plus" size={20} />
-            ) : (
+            ) : value < 0 ? (
               <Icon color="green" type="entypo" name="minus" size={20} />
-            )}
-            <Text h4>
+            ) : null}
+            <Text style={{ fontWeight: 'bold' }}>
               {value}
               {'%'}
             </Text>
-            {value !== 'hola' ? (
+            {value > 0 ? (
               <Icon name="trending-up" type="feather" color="red" size={30} />
-            ) : (
+            ) : value < 0 ? (
               <Icon
                 name="trending-down"
                 type="feather"
                 color="green"
                 size={30}
               />
-            )}
+            ) : null}
           </HStack>
         ) : (
-          <Text h4>
-            {value} {getUnidadDeMedida()}
-          </Text>
+          getUnits(title)
         )}
       </View>
     </Card>

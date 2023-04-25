@@ -15,7 +15,8 @@
           "@config": "./src/config",
           "@screens": "./src/screens",
           "@services": "./src/services",
-          "@tasks": "./src/tasks"
+          "@tasks": "./src/tasks",
+          "@tools": "./src/tools"
         }
       }
     ]
