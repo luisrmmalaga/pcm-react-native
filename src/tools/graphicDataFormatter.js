@@ -54,6 +54,16 @@ export function getFormattedDate(date) {
     : ''
 }
 
+function getDayAndMonth(date) {
+  const newDate = new Date(date)
+
+  return date
+    ? getFormattedTimeUnit(newDate.getDate()) +
+        '/' +
+        getFormattedTimeUnit(newDate.getMonth() + 1)
+    : ''
+}
+
 export function getContributionGraphicDataFormatted(data) {
   return data.map((item) => {
     return {
@@ -70,7 +80,9 @@ function getPreviousDays() {
   for (let i = 6; i >= 0; i--) {
     const previousDay = new Date(today)
     previousDay.setDate(today.getDate() - i)
-    const dayString = `${previousDay.getDate()}/${previousDay.getMonth() + 1}`
+    const dayString = `${getFormattedTimeUnit(
+      previousDay.getDate()
+    )}/${getFormattedTimeUnit(previousDay.getMonth() + 1)}`
     days.push(dayString)
   }
 
@@ -79,11 +91,18 @@ function getPreviousDays() {
 
 function getDatasets(data) {
   return data.map((favourite) => {
+    let count = 0
+    const color = getRGBOColor()
     return {
-      data: favourite.datos.map((checkpoint) => {
-        return checkpoint.densidad
+      data: getPreviousDays().map((day, index) => {
+        if (day === getDayAndMonth(favourite.datos[count]?.timestamp)) {
+          count++
+          return favourite.datos[count]?.densidad ?? 0
+        } else {
+          return 0
+        }
       }),
-      color: () => getRGBOColor(),
+      color: () => color,
       strokeWidth: 2,
     }
   })
