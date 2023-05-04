@@ -93,15 +93,17 @@ function getDatasets(data) {
   return data.map((favourite) => {
     let count = 0
     const color = getRGBOColor()
+    const data = []
+    getPreviousDays().forEach((day, index) => {
+      if (day === getDayAndMonth(favourite.datos[count]?.timestamp)) {
+        data.push(favourite.datos[count]?.densidad ?? 0)
+        count++
+      } else {
+        data.push(0)
+      }
+    })
     return {
-      data: getPreviousDays().map((day, index) => {
-        if (day === getDayAndMonth(favourite.datos[count]?.timestamp)) {
-          count++
-          return favourite.datos[count]?.densidad ?? 0
-        } else {
-          return 0
-        }
-      }),
+      data,
       color: () => color,
       strokeWidth: 2,
     }

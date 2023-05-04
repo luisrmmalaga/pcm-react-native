@@ -22,23 +22,6 @@ const chartConfig = {
   useShadowColorFromDataset: false,
 }
 
-const data = {
-  labels: ['1', '2', '3', '4', '5', '6', '7'],
-  datasets: [
-    {
-      data: [28, 45, 43, 20, 99, 80, 0],
-      color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-      strokeWidth: 2,
-    },
-    {
-      data: [20, 45, 28, 80, 99, 43, 0],
-      color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-      strokeWidth: 2,
-    },
-  ],
-  legend: ['Rainy Days', 'prueba'],
-}
-
 function GraphicsScreen({ navigation }) {
   const [index, setIndex] = useState(0)
   const [trendingData, setTrendingData] = useState([])
