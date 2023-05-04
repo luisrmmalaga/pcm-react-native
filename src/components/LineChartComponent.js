@@ -29,6 +29,7 @@ const LineChartComponent = ({ props }) => {
         chartConfig={props.chartConfig}
         segments={7}
         onDataPointClick={(res) => setDensidad(res.value)}
+        bezier
       />
     </VStack>
   )

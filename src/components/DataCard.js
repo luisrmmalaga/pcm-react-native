@@ -47,8 +47,10 @@ const dataCard = ({ props }) => {
             ) : value < 0 ? (
               <Icon color="green" type="entypo" name="minus" size={20} />
             ) : null}
-            <Text style={{ fontWeight: 'bold' }}>
-              {value}
+            <Text
+              style={{ fontWeight: 'bold', color: value > 0 ? 'red' : 'green' }}
+            >
+              {Math.abs(value)}
               {'%'}
             </Text>
             {value > 0 ? (
