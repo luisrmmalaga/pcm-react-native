@@ -156,7 +156,7 @@ function FavFormScreen({ route, navigation }) {
             onPress={handleSubmit(onSubmit)}
           />
           <Button
-            title="Reset"
+            title="Limpiar"
             style={Styles.formButton}
             trailing={(props) => <FontAwesome name="eraser" {...props} />}
             onPress={() => {
