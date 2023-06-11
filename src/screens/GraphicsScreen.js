@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE } from '@config/constants'
 import { ActivityIndicator } from '@react-native-material/core'
-import { Tab, TabView } from '@rneui/themed'
+import { Tab, TabView, Text } from '@rneui/themed'
 import { getCheckpointsByUserId } from '@services/checkpoints_service_api_calls'
 import { getFavouritesByUserId } from '@services/favoritos_api_calls'
 import { getPieDataFormatted } from '@tools/graphicDataFormatter'
@@ -85,13 +85,17 @@ function GraphicsScreen({ navigation }) {
         >
           <TabView.Item>
             {!isLoading ? (
-              <LineChartComponent
-                props={{
-                  title: 'Tendencia de las densidades',
-                  data: trendingData,
-                  chartConfig,
-                }}
-              />
+              trendingData.datasets.length > 0 ? (
+                <LineChartComponent
+                  props={{
+                    title: 'Tendencia de las densidades',
+                    data: trendingData,
+                    chartConfig,
+                  }}
+                />
+              ) : (
+                <Text>No hay datos</Text>
+              )
             ) : (
               <ActivityIndicator size="large" />
             )}
